@@ -29,14 +29,15 @@ module.exports = {
     },
     "gatsby-plugin-typescript",
     {
-      resolve: "gatsby-source-graphql",
+      resolve: `gatsby-source-wordpress`,
       options: {
-        // Remote schema query type. This is an arbitrary name.
-        typeName: "WordPress",
-        // Field name under which it will be available. Used in your Gatsby query. This is also an arbitrary name.
-        fieldName: "wordPress",
-        // GraphQL endpoint, relative to your WordPress home URL.
-        url: "http://localhost/wordpress/graphql",
+        // Specify the URL of the WordPress source
+        baseUrl: `localhost/wordpress`,
+        protocol: `http`,
+        // Indicates if a site is hosted on WordPress.com
+        hostingWPCOM: false,
+        // Specify which URL structures to fetch
+        includedRoutes: ["**/posts", "**/pages", "**/tags", "**/categories"],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

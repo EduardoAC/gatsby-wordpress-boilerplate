@@ -3,7 +3,8 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 
 export default ({ data }) => {
-  const post = data.wordPress.posts.edges[0].node
+  const post = data.allWordpressPost.edges[0].node
+  console.log(post)
   return (
     <Layout>
       <div>
@@ -17,15 +18,13 @@ export default ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    wordPress {
-      posts(where: { name: $slug }) {
-        edges {
-          node {
-            title
-            content
-            slug
-            date
-          }
+    allWordpressPost(filter: { slug: { eq: $slug } }) {
+      edges {
+        node {
+          title
+          content
+          slug
+          date(formatString: "MM-DD-YYYY")
         }
       }
     }
