@@ -27,19 +27,18 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    "gatsby-plugin-typescript",
     {
-      resolve: `gatsby-source-wordpress`,
+      resolve: "gatsby-source-graphql",
       options: {
-        // Specify the URL of the WordPress source
-        baseUrl: `localhost/wordpress`,
-        protocol: `http`,
-        // Indicates if a site is hosted on WordPress.com
-        hostingWPCOM: false,
-        // Specify which URL structures to fetch
-        includedRoutes: ["**/posts", "**/tags", "**/categories"],
+        // Remote schema query type. This is an arbitrary name.
+        typeName: "WordPress",
+        // Field name under which it will be available. Used in your Gatsby query. This is also an arbitrary name.
+        fieldName: "wordPress",
+        // GraphQL endpoint, relative to your WordPress home URL.
+        url: "http://localhost/wordpress/graphql",
       },
     },
-    "gatsby-plugin-typescript",
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

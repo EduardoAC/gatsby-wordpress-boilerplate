@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = ({ data }) => (
+const IndexPage = ({ data: { wordPress } }) => (
   <Layout>
     <SEO title="Home" />
     <h1>Hi people</h1>
@@ -16,8 +16,8 @@ const IndexPage = ({ data }) => (
     </div>
     <Link to="/page-2/">Go to page 2</Link>
     <h4>Posts</h4>
-    {data.allWordpressPost.edges.map(({ node }) => (
-      <div>
+    {wordPress.posts.edges.map(({ node }) => (
+      <div key={`link-${node.slug}`}>
         <Link to={node.slug}>
           <p>{node.title}</p>
         </Link>
@@ -29,12 +29,14 @@ const IndexPage = ({ data }) => (
 
 export const pageQuery = graphql`
   query {
-    allWordpressPost(sort: { fields: [date] }) {
-      edges {
-        node {
-          title
-          excerpt
-          slug
+    wordPress {
+      posts(where: { orderby: { field: DATE, order: DESC } }) {
+        edges {
+          node {
+            title
+            excerpt
+            slug
+          }
         }
       }
     }
