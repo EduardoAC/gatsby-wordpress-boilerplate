@@ -11,21 +11,19 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   return graphql(`
     {
-      wordPress {
-        posts(where: { orderby: { field: DATE, order: DESC } }) {
-          edges {
-            node {
-              title
-              excerpt
-              slug
-              date
-            }
+      allWordpressPost(sort: { fields: [date] }) {
+        edges {
+          node {
+            title
+            excerpt
+            slug
+            date(formatString: "MM-DD-YYYY")
           }
         }
       }
     }
   `).then(result => {
-    result.data.wordPress.posts.edges.forEach(({ node }) => {
+    result.data.allWordpressPost.edges.forEach(({ node }) => {
       createPage({
         // Decide URL structure
         path: node.slug,
